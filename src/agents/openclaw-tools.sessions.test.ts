@@ -13,7 +13,7 @@ vi.mock("../config/config.js", async (importOriginal) => {
       session: {
         mainKey: "main",
         scope: "per-sender",
-        agentToAgent: { maxPingPongTurns: 2 },
+        agentToAgent: { maxPingPongTurns: 2, enableAnnounceStep: true },
       },
     }),
     resolveGatewayPort: () => 18789,
