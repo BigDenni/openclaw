@@ -494,6 +494,8 @@ export type ToolsConfig = {
     enabled?: boolean;
     /** Allowlist of agent ids or patterns (implementation-defined). */
     allow?: string[];
+    /** Default timeout in seconds for agent-to-agent calls when the caller doesn't specify one. Default: 120. Set to 0 for fire-and-forget. */
+    defaultTimeoutSeconds?: number;
   };
   /**
    * Session tool visibility controls which sessions can be targeted by session tools
