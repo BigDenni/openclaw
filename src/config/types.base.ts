@@ -102,8 +102,10 @@ export type SessionConfig = {
   mainKey?: string;
   sendPolicy?: SessionSendPolicyConfig;
   agentToAgent?: {
-    /** Max ping-pong turns between requester/target (0–5). Default: 5. */
+    /** Max ping-pong turns between requester/target (0–5). Default: 0. */
     maxPingPongTurns?: number;
+    /** Enable announce step (agent runs to generate summary message). Default: false. */
+    enableAnnounceStep?: boolean;
   };
   /** Automatic session store maintenance (pruning, capping, file rotation). */
   maintenance?: SessionMaintenanceConfig;

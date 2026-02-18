@@ -18,7 +18,7 @@ vi.mock("../config/config.js", async (importOriginal) => {
       session: {
         mainKey: "main",
         scope: "per-sender",
-        agentToAgent: { maxPingPongTurns: 2 },
+        agentToAgent: { maxPingPongTurns: 2, enableAnnounceStep: true },
       },
       tools: {
         // Keep sessions tools permissive in this suite; dedicated visibility tests cover defaults.

@@ -21,7 +21,11 @@ import {
   resolveSandboxedSessionToolContext,
   stripToolMessages,
 } from "./sessions-helpers.js";
-import { buildAgentToAgentMessageContext, resolvePingPongTurns } from "./sessions-send-helpers.js";
+import {
+  buildAgentToAgentMessageContext,
+  resolvePingPongTurns,
+  shouldEnableAnnounceStep,
+} from "./sessions-send-helpers.js";
 import { runSessionsSendA2AFlow } from "./sessions-send-tool.a2a.js";
 
 const SessionsSendToolSchema = Type.Object({
@@ -242,14 +246,20 @@ export function createSessionsSendTool(opts?: {
       const requesterSessionKey = opts?.agentSessionKey;
       const requesterChannel = opts?.agentChannel;
       const maxPingPongTurns = resolvePingPongTurns(cfg);
+      const enableAnnounceStep = shouldEnableAnnounceStep(cfg);
       const delivery = { status: "pending", mode: "announce" as const };
+      const needsA2AFlow = maxPingPongTurns > 0 || enableAnnounceStep;
       const startA2AFlow = (roundOneReply?: string, waitRunId?: string) => {
+        if (!needsA2AFlow) {
+          return;
+        }
         void runSessionsSendA2AFlow({
           targetSessionKey: resolvedKey,
           displayKey,
           message,
           announceTimeoutMs,
           maxPingPongTurns,
+          enableAnnounceStep,
           requesterSessionKey,
           requesterChannel,
           roundOneReply,

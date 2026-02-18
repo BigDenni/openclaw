@@ -7,7 +7,7 @@ import type { OpenClawConfig } from "../../config/config.js";
 
 const ANNOUNCE_SKIP_TOKEN = "ANNOUNCE_SKIP";
 const REPLY_SKIP_TOKEN = "REPLY_SKIP";
-const DEFAULT_PING_PONG_TURNS = 5;
+const DEFAULT_PING_PONG_TURNS = 0;
 const MAX_PING_PONG_TURNS = 5;
 
 export type AnnounceTarget = {
@@ -163,4 +163,8 @@ export function resolvePingPongTurns(cfg?: OpenClawConfig) {
   }
   const rounded = Math.floor(raw);
   return Math.max(0, Math.min(MAX_PING_PONG_TURNS, rounded));
+}
+
+export function shouldEnableAnnounceStep(cfg?: OpenClawConfig): boolean {
+  return cfg?.session?.agentToAgent?.enableAnnounceStep === true;
 }
