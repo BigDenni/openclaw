@@ -120,7 +120,12 @@ export async function runSessionsSendA2AFlow(params: {
         sourceChannel: params.requesterChannel,
         sourceTool: "sessions_send",
       });
-      if (announceTarget && announceReply && announceReply.trim() && !isAnnounceSkip(announceReply)) {
+      if (
+        announceTarget &&
+        announceReply &&
+        announceReply.trim() &&
+        !isAnnounceSkip(announceReply)
+      ) {
         try {
           await callGateway({
             method: "send",
